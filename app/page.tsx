@@ -6,6 +6,8 @@ import { collection, query, orderBy, limit, onSnapshot } from 'firebase/firestor
 import { db } from '@/lib/firebase';
 import { FiUser, FiClock } from 'react-icons/fi';
 import { motion } from 'framer-motion';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 interface News {
   id: string;
@@ -62,14 +64,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-items-start h-16">
-            <h1 className="text-2xl font-bold text-[#1d2d68]">DETIK SOLO</h1>
-          </div>
-        </div>
-      </header>
+      <Navbar/>
 
       {/* Breaking News */}
       <div className="bg-[#1d2d68] text-white py-2">
@@ -310,64 +305,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="relative bg-gradient-to-r from-[#1d2d68] via-[#1d2d68] to-[#1d2d68] text-white mt-12">
-        {/* Wave efek atas footer */}
-        <div className="absolute top-0 left-0 w-full overflow-hidden leading-none">
-          <svg
-            className="relative block w-full h-6 sm:h-8 md:h-10"
-            xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="none"
-            viewBox="0 0 1200 120"
-          >
-            <path
-              d="M321.39 56.44c58.21 4.09 114.21 22.88 172.4 27.69 72.16 6.02 144.3-11.59 216.45-22.42 88.62-13.44 177.24-17.29 265.86-6.58 75.09 9.02 146.59 27.72 224.9 35.42 39.58 3.82 79.88 5.55 119.99 3.42v67.03H0V64.83c106.39-14.19 213.51-24.64 321.39-8.39z"
-              className="fill-current text-gray-100 opacity-10"
-            ></path>
-          </svg>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <h3 className="text-xl font-bold mb-4">DETIK SOLO</h3>
-            <p className="text-gray-200">
-              Portal berita terpercaya menyajikan informasi terkini dan terpercaya dari berbagai kategori.
-            </p>
-          </div>
-
-          <div>
-            <h4 className="font-semibold mb-4">KATEGORI</h4>
-            <ul className="space-y-2">
-              {categories.slice(0, 7).map((category) => (
-                <li key={category}>
-                  <Link
-                    href={`/news`}
-                    className="text-gray-200 hover:text-[#facd8c] transition-colors"
-                  >
-                    {category}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-semibold mb-4">KONTAK</h4>
-            <address className="text-gray-200 not-italic">
-              Jl. Contoh Alamat No. 123
-              <br />
-              Kota, Provinsi 12345
-              <br />
-              Email: info@soloposnews.com
-              <br />
-              Telp: (021) 123-4567
-            </address>
-          </div>
-        </div>
-      <div className="bg-[#1d2d68] text-center py-4 text-sm text-gray-200 relative z-10">
-        © {new Date().getFullYear()} DETIK SOLO. All Rights Reserved.
-      </div>
-      </footer>
+      <Footer/>
     </div>
   );
 }

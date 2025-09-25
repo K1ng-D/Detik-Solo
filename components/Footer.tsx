@@ -39,7 +39,7 @@ export default function Footer() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-2xl font-bold mb-3">DETIK SOLO</h2>
+          <h2 className="text-2xl font-bold mb-3">Fakta Nusantara</h2>
           <p className="text-sm text-gray-200">
             Portal berita terpercaya menyajikan informasi terkini dari berbagai kategori,
             cepat dan akurat untuk Anda.
@@ -74,8 +74,8 @@ export default function Footer() {
           transition={{ duration: 0.6, delay: 0.4 }}
         >
           <h3 className="text-lg font-semibold mb-3">Kontak</h3>
-          <p className="text-sm">Email: redaksi@detiksolo.com</p>
-          <p className="text-sm">Telp: (0271) 123456</p>
+          <p className="text-sm">Email: bapassolo@gmail.com</p>
+          <p className="text-sm">Telp: 0858-6799-8553</p>
 
           <div className="flex gap-4 mt-4">
             <Link href="#" className="hover:text-[#facd8c] transition-colors">
@@ -96,7 +96,7 @@ export default function Footer() {
 
       {/* Bottom */}
       <div className="bg-[#1d2d68] text-center py-4 text-sm text-gray-200 relative z-10">
-        © {new Date().getFullYear()} DETIK SOLO. All Rights Reserved.
+        © {new Date().getFullYear()} FAKTRA. All Rights Reserved.
       </div>
     </footer>
   );

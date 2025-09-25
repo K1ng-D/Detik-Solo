@@ -9,6 +9,7 @@ import { getUserData } from '@/lib/auth';
 import { UserData } from '@/lib/auth';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiUser, FiLogOut, FiMenu, FiX, FiHome } from 'react-icons/fi';
+import Image from 'next/image';
 
 export default function Navbar() {
   const [user, setUser] = useState<User | null>(null);
@@ -93,13 +94,28 @@ export default function Navbar() {
                   whileHover={{ scale: 1.02 }}
                   className="text-2xl font-bold text-[#1d2d68]"
                 >
-                  DETIK SOLO
+                  <Image
+                  width={150}
+                  height={50}
+                  src="/faktra.png"
+                  alt="Faktra Logo"
+                  />
                 </motion.span>
               </Link>
             </div>
 
             {/* Desktop Menu */}
             <div className="hidden lg:flex items-center space-x-1">
+            <Link 
+                href="/" 
+                className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+                  isActive('/news') 
+                    ? 'text-[#1d2d68] border-b-2 border-[#1d2d68]' 
+                    : 'text-gray-700 hover:text-[#1d2d68]'
+                }`}
+              >
+                Beranda
+              </Link>
               <Link 
                 href="/news" 
                 className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${
@@ -113,7 +129,7 @@ export default function Navbar() {
               
               {user && userData?.role === 'admin' && (
                 <Link 
-                  href="/dashboard/admin" 
+                  href="/admin" 
                   className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${
                     pathname.startsWith('/dashboard') 
                       ? 'text-[#1d2d68] border-b-2 border-[#1d2d68]' 

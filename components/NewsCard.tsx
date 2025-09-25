@@ -110,10 +110,7 @@ export default function NewsCard({
                 <span>{formatDate(date)}</span>
               </div>
 
-              <div className="flex items-center">
-                <FiEye className="mr-1" size={12} />
-                <span>{views} dilihat</span>
-              </div>
+           
             </div>
           </div>
 
@@ -176,10 +173,7 @@ export default function NewsCard({
         </div>
 
         <div className="flex items-center justify-between mt-3">
-          <div className="flex items-center text-xs text-gray-500">
-            <FiEye className="mr-1" size={12} />
-            <span>{views} dilihat</span>
-          </div>
+        
           
           <button
             onClick={handleClick}
