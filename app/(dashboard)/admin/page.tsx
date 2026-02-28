@@ -140,6 +140,14 @@ export default function AdminDashboard() {
         accent: "text-emerald-700",
         bg: "bg-emerald-500/10",
       },
+      {
+        label: "Total Komentar",
+        value: stats.totalComments,
+        hint: countLoading ? "Memuat..." : undefined,
+        icon: <FiMessageCircle className="w-5 h-5" />,
+        accent: "text-orange-700",
+        bg: "bg-orange-500/10",
+      },
     ],
     [stats.totalNews, stats.totalUsers, stats.totalComments, countLoading],
   );
