@@ -1,28 +1,42 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { loginUser } from '@/lib/auth';
-import MotionWrapper from '@/components/MotionWrapper';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { loginUser } from "@/lib/auth";
+import MotionWrapper from "@/components/MotionWrapper";
+import { auth, db } from "@/lib/firebase";
+import { doc, getDoc } from "firebase/firestore";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    setError('');
+    setError("");
 
     try {
       await loginUser(email, password);
-      router.push('/news');
+
+      const uid = auth.currentUser?.uid;
+      if (!uid) {
+        // fallback
+        router.push("/news");
+        return;
+      }
+
+      const userSnap = await getDoc(doc(db, "users", uid));
+      const onboardingDone =
+        userSnap.exists() && userSnap.data()?.onboardingCompleted === true;
+
+      router.push(onboardingDone ? "/news" : "/onboarding");
     } catch (error: any) {
-      setError(error.message || 'Terjadi kesalahan saat login');
+      setError(error.message || "Terjadi kesalahan saat login");
     } finally {
       setIsLoading(false);
     }
@@ -36,11 +50,16 @@ export default function LoginPage() {
             {error}
           </div>
         )}
+
         <h2 className="text-center text-2xl font-bold text-gray-900">
-            Login User
-          </h2>
+          Login User
+        </h2>
+
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700"
+          >
             Email
           </label>
           <div className="mt-1">
@@ -58,7 +77,10 @@ export default function LoginPage() {
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-gray-700"
+          >
             Password
           </label>
           <div className="mt-1">
@@ -77,7 +99,10 @@ export default function LoginPage() {
 
         <div className="flex items-center justify-between">
           <div className="text-sm">
-            <Link href="/register" className="font-medium text-[#1d2d68] hover:text-[#1d2d68]/80">
+            <Link
+              href="/register"
+              className="font-medium text-[#1d2d68] hover:text-[#1d2d68]/80"
+            >
               Belum punya akun? Daftar di sini
             </Link>
           </div>
@@ -89,15 +114,14 @@ export default function LoginPage() {
             disabled={isLoading}
             className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#1d2d68] hover:bg-[#1d2d68]/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1d2d68] disabled:opacity-50 transition-colors"
           >
-            {isLoading ? 'Masuk...' : 'Masuk'}
+            {isLoading ? "Masuk..." : "Masuk"}
           </button>
         </div>
 
-        {/* 🔥 Bagian ini diubah jadi tombol register */}
         <div className="mt-6">
           <button
             type="button"
-            onClick={() => router.push('/register')}
+            onClick={() => router.push("/register")}
             className="w-full flex justify-center py-2 px-4 border border-[#1d2d68] rounded-md shadow-sm text-sm font-medium text-[#1d2d68] hover:bg-[#1d2d68]/10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1d2d68] transition-colors"
           >
             Register
